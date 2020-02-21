@@ -19,7 +19,8 @@
 
     <record id="application_reject_action" model="ir.actions.act_window">
         <field name="name">Reject Reason</field>
-        <field name="code">ir.actions.act_window</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">application.reject</field>
         <field name="view_mode">form</field>
         <field name="view_id" ref="application_reject_view_form"/>
         <field name="target">new</field>

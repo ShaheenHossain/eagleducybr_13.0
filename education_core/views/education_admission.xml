@@ -6,7 +6,7 @@
         <field name="model">education.admission.register</field>
         <field name="arch" type="xml">
             <tree string="Admission Register">
-                <field name="name"/>
+<!--                <field name="name"/>-->
                 <field name="standard"/>
                 <field name="academic_year"/>
                 <field name="start_time"/>
@@ -21,7 +21,7 @@
         <field name="arch" type="xml">
             <form string="Admission Register">
                 <group >
-                    <field name="name"/>
+<!--                    <field name="name"/>-->
                     <field name="standard"/>
                     <field name="academic_year"/>
                     <field name="start_time"/>
@@ -46,8 +46,9 @@
 
     <record id="action_admission_register" model="ir.actions.act_window">
         <field name="name">Admission Register</field>
+        <field name="res_model">education.admission.register</field>
         <field name="type">ir.actions.act_window</field>
-<!--        <field name="context">{'search_default_group_batch': 1,'search_default_group_level': 1}</field>-->
+        <field name="context">{'search_default_group_batch': 1,'search_default_group_level': 1}</field>
         <field name="view_mode">tree,form</field>
     </record>
 
@@ -57,7 +58,7 @@
         <field name="arch" type="xml">
             <tree string="Student Application">
                 <field name="application_no"/>
-                <field name="name"/>
+<!--                <field name="name"/>-->
                 <field name="gender"/>
                 <field name="date_of_birth"/>
                 <field name="email"/>
@@ -278,6 +279,7 @@
 
     <record id="action_student_application" model="ir.actions.act_window">
         <field name="name">Student Application</field>
+        <field name="res_model">education.application</field>
         <field name="type">ir.actions.act_window</field>
         <field name="view_mode">tree,form,graph,pivot</field>
         <field name="search_view_id" ref="application_search_view"/>

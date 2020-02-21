@@ -27,7 +27,7 @@ class EducationStudentClass(models.Model):
             rec.name = str(rec.admitted_class.name) + '(Assigned on ' + str(rec.assign_date) +')'
             #rec.name=rec.admitted_class.name # not working in eagle 12   + '(assigned on '+ rec.assign_date +')'
 
-    @api.model
+#    @api.model
     def assign_class(self):
         max_roll = self.env['education.class.history'].search([('class_id','=',self.admitted_class.id)], order='roll_no desc', limit=1)
         if max_roll.roll_no:
@@ -81,14 +81,14 @@ class EducationStudentClass(models.Model):
                 })
 
 
-    @api.model
+#    @api.model
     def unlink(self):
         """Return warning if the Record is in done state"""
         for rec in self:
             if rec.state == 'done':
                 raise ValidationError(_("Cannot delete Record in Done state"))
 
-    @api.model
+#    @api.model
     def get_student_list(self):
         """returns the list of students applied to join the selected class"""
         for rec in self:

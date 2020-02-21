@@ -98,7 +98,6 @@ class StudentApplication(models.Model):
     mother_car_no = fields.Char(string="mother's Car No", help="mother's Car No")
 
     religion_id = fields.Many2one('religion.religion', string="Religion", help="My Religion is ")
-    caste_id = fields.Many2one('religion.caste', string="Caste", help="My Caste is ")
     class_id = fields.Many2one('education.class.division', string="Class")
     active = fields.Boolean(string='Active', default=True)
     document_count = fields.Integer(compute='_document_count', string='# Documents')
@@ -150,7 +149,7 @@ class StudentApplication(models.Model):
             if rec.state != 'reject':
                 raise ValidationError(_("Application can only be deleted after rejecting it"))
 
-    @api.model
+#    @api.model
     def send_to_verify(self):
         """Button action for sending the application for the verification"""
         for rec in self:
@@ -162,37 +161,32 @@ class StudentApplication(models.Model):
             })
 
 
-    @api.model
+#    @api.model
     def create_student(self):
         """Create student from the application and data and return the student"""
         for rec in self:
-            father_id=self.env['res.partner']#.search([('nid_no','=',rec.father_NID)])
+            father_id=self.env['res.partner']
             if father_id.id:
                 father =father_id.id
             else:
                 new_father_id=father_id.create({'name': rec.father_name,
-                                                'nid_no': rec.father_NID,
-                                                'mobile': rec.father_mobile,
-                                                'car_no': rec.father_car_no,
-                                                'name_b': rec.father_name_b,
-                                                'gender': 'male',
                                                 'is_parent': True})
                 father=new_father_id.id
-            mother_id = self.env['res.partner']#.search([('nid_no', '=', rec.mother_NID)])
+
+            mother_id = self.env['res.partner']
             if mother_id.id:
                 mother = mother_id.id
             else:
                 new_mother_id = mother_id.create({'name': rec.mother_name,
-                                                  'nid_no': rec.mother_NID,
-                                                  'gender': 'female',
                                                   'is_parent': True})
                 mother = new_mother_id.id
+
             if rec.guardian_relation.name=='Father':
                 guardian=father
             elif  rec.guardian_relation.name=='Mother':
                 guardian=mother
             else:
-                guardian_id = self.env['res.partner']#.search([('nid_no', '=', rec.guardian_NID )])
+                guardian_id = self.env['res.partner']
                 if guardian_id.id:
                     guardian = guardian_id.id
                 else:
@@ -201,6 +195,7 @@ class StudentApplication(models.Model):
                                                           'gender': rec.guardian_relation.gender,
                                                           'is_parent': True})
                     guardian = new_guardian_id.id
+
             values = {
                 'name': rec.name,
                 'name_b': rec.name_b,
@@ -234,7 +229,6 @@ class StudentApplication(models.Model):
                 'is_student': True,
                 'medium': rec.medium.id,
                 'religion_id': rec.religion_id.id,
-                'caste_id': rec.caste_id.id,
                 # 'sec_lang': rec.sec_lang.id,
                 'mother_tongue': rec.mother_tongue.id,
                 'admission_class': rec.register_id.standard.id,
@@ -272,7 +266,7 @@ class StudentApplication(models.Model):
                 'context': self.env.context
             }
 
-    @api.model
+#    @api.model
     def reject_application(self):
         """Rejecting the student application for admission"""
         for rec in self:
@@ -282,7 +276,7 @@ class StudentApplication(models.Model):
 
 
 
-    @api.model
+ #   @api.model
     def application_verify(self):
         """Verifying the student application. Return warning if no Documents
          provided or if the provided documents are not in done state"""

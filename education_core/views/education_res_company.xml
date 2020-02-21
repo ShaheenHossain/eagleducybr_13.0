@@ -54,7 +54,8 @@
 
         <record id="action_education_institute_tree" model="ir.actions.act_window">
             <field name="name">Institute</field>
-            <field name="code">ir.actions.act_window</field>
+            <field name="res_model">education.institute</field>
+            <field name="type">ir.actions.act_window</field>
             <field name="view_mode">form,tree</field>
         </record>
 

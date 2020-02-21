@@ -62,6 +62,7 @@
 
     <record id="action_assign_class" model="ir.actions.act_window">
         <field name="name">Assign Class</field>
+        <field name="res_model">education.student.class</field>
         <field name="type">ir.actions.act_window</field>
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">

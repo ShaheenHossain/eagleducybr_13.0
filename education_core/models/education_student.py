@@ -46,42 +46,42 @@ class EducationStudent(models.Model):
         return res
 
     partner_id = fields.Many2one(
-        'res.partner', string='Partner', required=True, ondelete="cascade")
+        'res.partner', string='Partner', required=False, ondelete="cascade")
     middle_name = fields.Char(string='Middle Name')
     last_name = fields.Char(string='Last Name')
     name_b = fields.Char("নাম")
     middle_name_b = fields.Char("নামের মধ্যাংশ")
     last_name_b = fields.Char("নামের শেষাংশ")
     application_no = fields.Char(string="Application No")
-    date_of_birth = fields.Date(string="Date Of birth", requird=True)
-    guardian_relation = fields.Many2one('gurdian.student.relation', string="Relation to Guardian", required=True,
+    date_of_birth = fields.Date(string="Date Of birth", requird=False)
+    guardian_relation = fields.Many2one('gurdian.student.relation', string="Relation to Guardian", required=False,
                                         help="Tell us the Relation toyour guardian")
-    guardian_name = fields.Many2one('res.partner', string="Guardian", domain=[('is_parent', '=', True)])
+    guardian_name = fields.Many2one('res.partner', string="Guardian", domain=[('is_parent', '=', False)])
     # father_name = fields.Char(string="Father")
     # mother_name = fields.Char(string="Mother")
-    father_name = fields.Many2one('res.partner', string="Father", domain=[('is_parent', '=', True),('gender', '!=', 'female')], required=True,
+    father_name = fields.Many2one('res.partner', string="Father", domain=[('is_parent', '=', True),('gender', '!=', 'female')], required=False,
                                   help="Proud to say my father is")
-    mother_name = fields.Many2one('res.partner', string="Mother", domain=[('is_parent', '=', True),('gender', '!=', 'male')], required=True,
+    mother_name = fields.Many2one('res.partner', string="Mother", domain=[('is_parent', '=', True),('gender', '!=', 'male')], required=False,
                                   help="My mother name is")
     class_id = fields.Many2one('education.class.division', string="Class")
     admission_class = fields.Many2one('education.class', string="Admission Class")
     ad_no = fields.Char(string="Admission Number", readonly=True)
+    image = fields.Binary(string='Image', help="Provide the image of the Student")
     gender = fields.Selection([('male', 'Male'), ('female', 'Female'), ('other', 'Other')],
-                              string='Gender', required=True, default='male', track_visibility='onchange')
+                              string='Gender', required=False, default='male', track_visibility='onchange')
     blood_group = fields.Selection([('a+', 'A+'), ('a-', 'A-'), ('b+', 'B+'), ('o+', 'O+'), ('o-', 'O-'),
                                     ('ab-', 'AB-'), ('ab+', 'AB+')],
-                                   string='Blood Group', required=True, default='a+', track_visibility='onchange')
+                                   string='Blood Group', required=False, default='a+', track_visibility='onchange')
     company_id = fields.Many2one('res.company', string='Company')
     per_street = fields.Char()
     per_street2 = fields.Char()
-    per_zip = fields.Char(change_default=True)
+    per_zip = fields.Char(change_default=False)
     per_city = fields.Char()
     per_state_id = fields.Many2one("res.country.state", string='State', ondelete='restrict')
     per_country_id = fields.Many2one('res.country', string='Country', ondelete='restrict',default=19)
-    medium = fields.Many2one('education.medium', string="Medium", required=True)
+    medium = fields.Many2one('education.medium', string="Medium", required=False)
     sec_lang = fields.Many2one('education.subject', string="Second language", required=False, domain=[('is_language', '=', True)])
-    mother_tongue = fields.Many2one('education.mother.tongue', string="Mother Tongue", required=True, domain=[('is_language', '=', True)])
-    caste_id = fields.Many2one('religion.caste', string="Caste")
+    mother_tongue = fields.Many2one('education.mother.tongue', string="Mother Tongue", required=False, domain=[('is_language', '=', True)])
     religion_id = fields.Many2one('religion.religion', string="Religion")
     is_same_address = fields.Boolean(string="Is same Address?")
     nationality = fields.Many2one('res.country', string='Nationality', ondelete='restrict',default=19,)

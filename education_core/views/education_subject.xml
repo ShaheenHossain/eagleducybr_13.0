@@ -60,6 +60,7 @@
 
     <record id="action_education_subject_tree" model="ir.actions.act_window">
         <field name="name">Subject</field>
+        <field name="res_model">education.subject</field>
         <field name="type">ir.actions.act_window</field>
         <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="subject_search"/>

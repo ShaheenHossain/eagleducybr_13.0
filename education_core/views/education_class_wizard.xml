@@ -21,7 +21,8 @@
 
     <record id="application_create_student" model="ir.actions.act_window">
         <field name="name">Class Details</field>
-        <field name="code">ir.actions.act_window</field>
+        <field name="res_model">class.details</field>
+        <field name="type">ir.actions.act_window</field>
         <field name="view_mode">form</field>
         <field name="view_id" ref="application_student_class"/>
         <field name="target">new</field>

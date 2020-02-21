@@ -26,7 +26,8 @@
 
     <record id="action_application_report" model="ir.actions.act_window">
         <field name="name">Application Analysis</field>
-        <field name="code">ir.actions.act_window</field>
+        <field name="res_model">education.application</field>
+        <field name="type">ir.actions.act_window</field>
         <field name="view_mode">form,pivot,graph</field>
         <field name="context">{'search_default_new_application': 1}</field>
     </record>

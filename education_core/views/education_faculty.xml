@@ -104,7 +104,8 @@
 
     <record id="action_faculty" model="ir.actions.act_window">
         <field name="name">Faculty</field>
-        <field name="code">ir.actions.act_window</field>
+        <field name="res_model">education.faculty</field>
+        <field name="type">ir.actions.act_window</field>
         <field name="view_mode">kanban,tree,form</field>
 <!--
         <field name="search_view_id" ref="faculty_search"/>

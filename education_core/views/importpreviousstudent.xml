@@ -38,7 +38,8 @@
 
     <record id="action_import_previous_student" model="ir.actions.act_window">
         <field name="name">Import student</field>
-        <field name="code">ir.actions.act_window</field>
+        <field name="res_model">education.import.previous.student</field>
+        <field name="type">ir.actions.act_window</field>
         <field name="view_type">form</field>
         <field name="view_mode">form,tree</field>
 
