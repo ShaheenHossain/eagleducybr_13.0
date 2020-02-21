@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <eagle>
-    <data>
 
         <record id="examination_form" model="ir.ui.view">
             <field name="name">examination_form.form</field>
@@ -117,7 +116,6 @@
             <field name="context">{'search_default_group_academic_year': 1,
                 'search_default_group_exam_type': 1,
                 'search_default_group_class_id': 1}</field>
-            <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="target">current</field>
         </record>
@@ -170,7 +168,6 @@
         <record id="act_examination_list_view" model="ir.actions.act_window">
             <field name="name">Exam list</field>
             <field name="res_model">exam.list</field>
-            <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="target">current</field>
         </record>
@@ -178,7 +175,6 @@
         <record id="act_exam_type_view" model="ir.actions.act_window">
             <field name="name">Exam Type</field>
             <field name="res_model">education.exam.type</field>
-            <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="target">current</field>
         </record>
@@ -198,5 +194,4 @@
         <menuitem id="examination_list_menu" parent="education_exam.examination_configuration_menu"
                   action="act_examination_list_view" name="Exam List" sequence="15"/>
 
-    </data>
 </eagle>

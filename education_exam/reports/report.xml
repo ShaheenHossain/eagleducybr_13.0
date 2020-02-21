@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <eagle>
-    <data>
 
 
 <record id="legal_landscape" model="report.paperformat">
@@ -163,5 +162,4 @@
         />
 
 
-    </data>
 </eagle>

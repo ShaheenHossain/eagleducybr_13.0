@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <eagle>
-    <data>
 
         <record id="exam_subject_pass_rules_tree" model="ir.ui.view">
             <field name="name">exam_subject_pass_rules_tree</field>
@@ -21,7 +20,7 @@
     <record id="exam_subject_pass_rules_form" model="ir.ui.view">
             <field name="name">exam_subject_pass_rules_form</field>
             <field name="model">exam.subject.pass.rules</field>
-            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
             <field name="arch" type="xml">
                 <form create="0" >
                     <group col="4">
@@ -75,7 +74,7 @@
     <record id="exam_paper_pass_rules_form" model="ir.ui.view">
             <field name="name">exam_paper_pass_rules_form</field>
             <field name="model">exam.paper.pass.rules</field>
-            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
             <field name="arch" type="xml">
                 <form create="0" >
                     <group col="4">
@@ -132,7 +131,6 @@
         <record id="act_exam_subject_pass_rules" model="ir.actions.act_window">
             <field name="name">Subject wise Pass-Fail Rules</field>
             <field name="res_model">exam.subject.pass.rules</field>
-            <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <!--<field name="target">current</field>-->
             <!--<field name="context">{'search_default_group_class_id': 1, 'search_default_group_division_id':1,-->
@@ -142,7 +140,6 @@
         <record id="act_exam_paper_pass_rules" model="ir.actions.act_window">
             <field name="name">Paper wise Pass-Fail Rules</field>
             <field name="res_model">exam.paper.pass.rules</field>
-            <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <!--<field name="target">current</field>-->
             <!--<field name="context">{'search_default_group_class_id': 1, 'search_default_group_division_id':1,-->
@@ -158,5 +155,4 @@
         <menuitem id="exam_paper_pass_rule_menu" parent="education_exam.exam_pass_rule_menu"
                   action="act_exam_paper_pass_rules" name="Paper Rules" sequence="23"/>
 
-    </data>
 </eagle>

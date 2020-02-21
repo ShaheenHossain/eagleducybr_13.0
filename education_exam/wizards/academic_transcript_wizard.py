@@ -16,12 +16,12 @@ class academicTranscript(models.Model):
     specific_student=fields.Boolean('For a specific Student')
     student=fields.Many2one('education.student','Student')
     state=fields.Selection([('draft','Draft'),('done','Done')],compute='calculate_state')
-    @api.multi
+    @api.model
     def del_generated_results(self):
         for exam in self.exams:
             records=self.env['education.exam.results.new'].search([('exam_id','=',exam.id)]).unlink()
 
-    @api.multi
+    @api.model
     def calculate_state(self):
         results=self.env[('education.exam.results')].search([('academic_year','=',self.academic_year.id),('class_id','=','level')])
         for exam in self.exams:
@@ -32,7 +32,7 @@ class academicTranscript(models.Model):
                     return True
         self.state='done'
 
-    @api.multi
+    @api.model
     def get_merit_list(self):
         for rec in self:
             level=rec.level
@@ -40,7 +40,7 @@ class academicTranscript(models.Model):
                 self.env['education.exam.results.new'].calculate_merit_list(exam,level)
 
 
-    @api.multi
+    @api.model
     @api.onchange('level', 'section')
     def get_student_domain(self):
         for rec in self:
@@ -51,14 +51,14 @@ class academicTranscript(models.Model):
                 domain.append(('class_id.class_id.id', '=', rec.level.id))
 
         return {'domain': {'student':domain}}
-    @api.multi
+    @api.model
     @api.onchange('specific_section')
     def onchange_specific_section(self):
         for rec in self:
             if rec.specific_section==False:
                 rec.specific_student=False
                 rec.section=False
-    @api.multi
+    @api.model
     def generate_results(self):
         for rec in self:
             for exam in self.exams:
@@ -173,7 +173,7 @@ class academicTranscript(models.Model):
             #self.calculate_result_subject_lines(result_subject_line_list)
             self.get_result_type_count(exam)
             self.calculate_subjects_results(exam)
-    @api.multi
+    @api.model
     def calculate_subject_rules(self,subject_list,exam):
         for subjects in subject_list:
             subjectRules= self.env['exam.subject.pass.rules'].search(
@@ -201,7 +201,7 @@ class academicTranscript(models.Model):
                 line.subj_mark = subjective_mark
                 line.tut_mark = tutorial_mark
 
-    @api.multi
+    @api.model
     def calculate_subjects_results(self, exam):
         student_lines = self.env['education.exam.results.new'].search([('exam_id', '=', exam.id)])
         for student in student_lines:
@@ -474,7 +474,7 @@ class academicTranscript(models.Model):
         #             highest_set=True
         #         line.subject_highest=highest
 
-    @api.multi
+    @api.model
     def calculate_result_paper_lines(self,result_paper_lines):
         for rec in result_paper_lines:
             passFail = True
@@ -518,7 +518,7 @@ class academicTranscript(models.Model):
                 rec.gp = 0
                 rec.lg = 'F'
 
-    @api.multi
+    @api.model
     def calculate_result_subject_lines(self,result_subject_lines):
         for rec in result_subject_lines:
             practical_obt = 0
@@ -581,7 +581,7 @@ class academicTranscript(models.Model):
                 rec.grade_point = 0
                 rec.letter_grade = 'F'
 
-    @api.multi
+    @api.model
     def get_result_type_count(self,exam):
         result_lines=self.env['education.exam.results.new'].search([('exam_id','=',exam.id)])
         for rec in result_lines:

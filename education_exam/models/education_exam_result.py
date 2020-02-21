@@ -27,7 +27,7 @@ class EducationExamResultsExamination(models.Model):
                 if not exam_last:
                     name_str=name_str +','
 
-    @api.multi
+    @api.model
     def process_average_results(self,result_exam_line):
         collection={}
         exam_class=''
@@ -293,7 +293,7 @@ class EducationExamResultsExamination(models.Model):
 
 
 
-    @api.multi
+    @api.model
     def calculate_exam_results(self,result_exam_line):
         for exam in result_exam_line.exam_ids:
             results_new_list=[]
@@ -410,14 +410,14 @@ class EducationExamResultsExamination(models.Model):
         self.get_result_type_count()
         self.calculate_subjects_results(result_exam_line)
 
-    @api.multi
+    @api.model
     def calculate_exam_average_results(self, result_exam_line):
         result_student_lines=self.env['education.exam.results.new'].search([('exam_result_line','=',result_exam_line.id)])
         for line in result_student_lines:
             line.calculate_result()
 
 
-    @api.multi
+    @api.model
     def calculate_subjects_results(self,exam_result_line):
         student_lines = self.env['education.exam.results.new'].search([('exam_result_line', '=', exam_result_line.id)])
         for student in student_lines:
@@ -719,7 +719,7 @@ class EducationExamResultsExamination(models.Model):
     #             highest=line.subject_mark
     #             highest_set=True
     #         line.subject_highest=highest
-    @api.multi
+    @api.model
     def calculate_subject_rules(self,subject_list,result_exam_line):
         for subjects in subject_list:
             subjectRules= self.env['exam.subject.pass.rules'].search(
@@ -751,7 +751,7 @@ class EducationExamResultsExamination(models.Model):
                 line.obj_mark = objective_mark
                 line.subj_mark = subjective_mark
                 line.tut_mark = tutorial_mark
-    @api.multi
+    @api.model
     def get_result_type_count(self):
         result_lines=self.env['education.exam.results.new'].search([('exam_id','=',self.exam_ids.id)])
         for rec in result_lines:
@@ -862,7 +862,7 @@ class EducationExamResultsNew(models.Model):
 
 
 
-    @api.multi
+    @api.model
     def calculate_merit_list(self,result_exam_lines,level):
         for line in result_exam_lines:
             results=[]
@@ -964,7 +964,7 @@ class EducationExamResultsNew(models.Model):
                 [('student_id', '=', rec.student_id.id), ('academic_year_id', '=', rec.academic_year.id)])
             rec.student_history=history.id
 
-    @api.multi
+    @api.model
     def calculate_result(self):
         showTut=False
         showSubj=False
@@ -1149,7 +1149,7 @@ class ResultsSubjectLineNew(models.Model):
     pass_or_fail = fields.Boolean(string='Pass/Fail')
     company_id = fields.Many2one('res.company', string='Company',
                                  default=lambda self: self.env['res.company']._company_default_get())
-    @api.multi
+    @api.model
     def calculate_subject_results(self):
         pass_rules = self.pass_rule_id
         subject_passed = True
@@ -1232,7 +1232,7 @@ class result_paper_line(models.Model):
     lg=fields.Char("letter Grade")
     gp=fields.Float("grade Point")
 
-    @api.multi
+    @api.model
     def calculte_paper_results(self):
         pass_rules=self.pass_rule_id
         paper_passed=True

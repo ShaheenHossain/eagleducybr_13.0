@@ -29,7 +29,7 @@ class educationExamResultWizard(models.TransientModel):
     show_average=fields.Boolean("Show average",default="True")
     show_average_only=fields.Boolean("Show average Only")
     record_per_page=fields.Integer(string="Student Per Page", default="6")
-    @api.multi
+    @api.model
     def del_generated_results(self):
         for exam in self.exams:
             records=self.env['education.exam.results.new'].search([('exam_id','=',exam.id)]).unlink()
@@ -50,7 +50,7 @@ class educationExamResultWizard(models.TransientModel):
             'report_type': "qweb-pdf",
             'paperformat': "legal_landscape",
         }
-    @api.multi
+    @api.model
     def calculate_state(self):
         results=self.env[('education.exam.results')].search([('academic_year','=',self.academic_year.id),('class_id','=','level')])
         for exam in self.exams:
@@ -61,7 +61,7 @@ class educationExamResultWizard(models.TransientModel):
                     return True
         self.state='done'
 
-    @api.multi
+    @api.model
     def get_merit_list(self):
         exam_lines=[]
         for exam in self.exams:
@@ -75,7 +75,7 @@ class educationExamResultWizard(models.TransientModel):
         self.env['education.exam.results.new'].calculate_merit_list(exam_lines,self.level)
 
 
-    @api.multi
+    @api.model
     @api.onchange('level', 'section')
     def get_student_domain(self):
         for rec in self:
@@ -86,7 +86,7 @@ class educationExamResultWizard(models.TransientModel):
                 domain.append(('class_id.class_id.id', '=', rec.level.id))
 
         return {'domain': {'student':domain}}
-    @api.multi
+    @api.model
     @api.onchange('specific_section')
     def onchange_specific_section(self):
         for rec in self:
@@ -96,13 +96,13 @@ class educationExamResultWizard(models.TransientModel):
                 rec.student = False
 
 
-    @api.multi
+    @api.model
     @api.onchange('specific_student')
     def onchange_specific_student(self):
         for rec in self:
             if rec.specific_student==False:
                 rec.student=False
-    @api.multi
+    @api.model
     def generate_results(self):
         for exam in self.exams:
             result_exam_lines=self.env['education.exam.result.exam.line'].search([('exam_count','=','1'),('exam_ids','=', exam.id)])
@@ -144,7 +144,7 @@ class educationExamResultWizard(models.TransientModel):
                 result_exam_lines.total_working_days=t_working_days
             result_exam_lines.process_average_results(result_exam_lines)
 
-    @api.multi
+    @api.model
     def calculate_subject_rules(self,subject_list,exam):
         for subjects in subject_list:
             subjectRules= self.env['exam.subject.pass.rules'].search(
@@ -172,7 +172,7 @@ class educationExamResultWizard(models.TransientModel):
                 line.subj_mark = subjective_mark
                 line.tut_mark = tutorial_mark
 
-    @api.multi
+    @api.model
     def calculate_subjects_results(self, exam):
         student_lines = self.env['education.exam.results.new'].search([('exam_id', '=', exam.id)])
         for student in student_lines:
@@ -472,7 +472,7 @@ class educationExamResultWizard(models.TransientModel):
         #             highest_set=True
         #         line.subject_highest=highest
 
-    @api.multi
+    @api.model
     def calculate_result_paper_lines(self,result_paper_lines):
         for rec in result_paper_lines:
             passFail = True
@@ -516,7 +516,7 @@ class educationExamResultWizard(models.TransientModel):
                 rec.gp = 0
                 rec.lg = 'F'
 
-    @api.multi
+    @api.model
     def calculate_result_subject_lines(self,result_subject_lines):
         for rec in result_subject_lines:
             practical_obt = 0
@@ -579,7 +579,7 @@ class educationExamResultWizard(models.TransientModel):
                 rec.grade_point = 0
                 rec.letter_grade = 'F'
 
-    @api.multi
+    @api.model
     def get_result_type_count(self,exam):
         result_lines=self.env['education.exam.results.new'].search([('exam_id','=',exam.id)])
         for rec in result_lines:

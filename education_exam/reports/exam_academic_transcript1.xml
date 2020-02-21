@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <eagle>
-    <data>
-
         <template id="report_exam_academic_transcript1">
             <t t-call="web.html_container">
                 <t t-foreach="get_students(docs)" t-as="student">
@@ -193,5 +191,4 @@
             </t>
         </template>
 
-    </data>
 </eagle>

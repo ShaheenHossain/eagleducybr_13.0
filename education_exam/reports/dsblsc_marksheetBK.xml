@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <eagle>
-    <data>
         <template id="external_layout_marksheet_dsblsc">
 <style>
 
@@ -342,5 +341,4 @@
             </t>
         </template>
 
-    </data>
 </eagle>

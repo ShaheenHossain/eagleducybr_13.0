@@ -34,7 +34,7 @@ class EducationExam(models.Model):
     return_date = fields.Date(string="Date Of Return")
     result_sheet_created = fields.Boolean(string='result sheet Created')
     exam_result = fields.Char(string='Results')
-    @api.multi
+    @api.model
     @api.onchange('academic_year','exam_type')
     def get_class_domain(self):
         for rec in self:
@@ -60,7 +60,7 @@ class EducationExam(models.Model):
             if rec.start_date > rec.end_date:
                 raise ValidationError(_("Start date must be Anterior to end date"))
 
-    @api.multi
+    @api.model
     def close_exam(self):
         all_completed=1
         valuation_status=self.env['education.exam.valuation'].search([('exam_id','=',self.id)])
@@ -72,11 +72,11 @@ class EducationExam(models.Model):
         else:
             raise ValidationError(_("Complete all valuation first!"))
 
-    @api.multi
+    @api.model
     def cancel_exam(self):
         self.state = 'cancel'
 
-    @api.multi
+    @api.model
     def confirm_exam(self):
         if len(self.subject_line) < 1:
             raise UserError(_('Please Add Subjects'))
@@ -87,7 +87,7 @@ class EducationExam(models.Model):
             name = name + ' (' + str(self.class_id.name) + ')'
         self.generated_name = name
         self.state = 'ongoing'
-    @api.multi
+    @api.model
     def check_student_section_subject(self,section_id,subject_id):
         sections=self.env['education.class.division'].search([('academic_year_id','=',self.academic_year.id),('class_id','=',self.class_id.id)])
         for section in sections:
@@ -109,7 +109,7 @@ class EducationExam(models.Model):
                                     return True
 
         return False
-    @api.multi
+    @api.model
     def create_result_sheet(self):
         sections=self.env['education.class.division'].search([('academic_year_id','=',self.academic_year.id),('class_id','=',self.class_id.id)])
         subjects=self.subject_line
@@ -128,7 +128,7 @@ class EducationExam(models.Model):
                         'academic_year':self.academic_year.id,
                     })
 
-    @api.multi
+    @api.model
     def get_subjects(self):
         for rec in self:
             subjline_obj=self.env['education.subject.line']
@@ -142,10 +142,9 @@ class EducationExam(models.Model):
                       'date':rec.start_date
                       }
                 subjline_obj.create(data)
-    @api.multi
+    @api.model
     def print_results(self):
         return {
-            'view_type': 'form',
             'view_mode': 'form',
             'res_model': 'education.exam.result.wizard',
             'target': 'new',

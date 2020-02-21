@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <eagle>
-    <data>
         <template id="external_layout_mark_sheet_dsblsc">
                     <style>
                         .right_top{
@@ -2460,5 +2459,4 @@
             </t>
         </template>
 
-    </data>
 </eagle>

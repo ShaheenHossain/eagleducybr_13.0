@@ -38,7 +38,7 @@ class EducationExamValuation(models.Model):
     company_id = fields.Many2one('res.company', string='Company',
                                  default=lambda self: self.env['res.company']._company_default_get())
     highest=fields.Integer('Highest mark Obtained')
-    # @api.multi
+    # @api.model
     # def get_highest(self):
     #     for rec in self:
     #         evlauation_line=self.env['exam.valuation.line'].search([('valuation_id','=',rec.id)],order='mark_scored asc',limit=1)
@@ -105,7 +105,7 @@ class EducationExamValuation(models.Model):
             domain.append(items.subject_id.id)
         return {'domain': {'subject_id': [('id', 'in', domain)]}}
 
-    @api.multi
+    @api.model
     def create_mark_sheet(self):
 
 
@@ -142,7 +142,7 @@ class EducationExamValuation(models.Model):
                     res.subject_id.name, res.division_id.name, res.exam_id.name))
         return res
 
-    @api.multi
+    @api.model
     def valuation_completed(self):
         self.name = str(self.exam_id.exam_type.name) + '-' + str(self.exam_id.start_date)[0:10] + ' (' + str(
             self.division_id.name) + ')'
@@ -214,7 +214,7 @@ class EducationExamValuation(models.Model):
                 result_line_obj.create(result_line_data)
         self.state = 'completed'
 
-    @api.multi
+    @api.model
     def set_to_draft(self):
         result_line_obj = self.env['results.subject.line']
         result_obj = self.env['education.exam.results']
@@ -229,7 +229,7 @@ class EducationExamValuation(models.Model):
             search_result_line.unlink()
         self.state = 'draft'
 
-    @api.multi
+    @api.model
     def valuation_canceled(self):
         self.state = 'cancel'
 
@@ -283,7 +283,7 @@ class StudentsExamValuationLine(models.Model):
 
 
 
-    @api.multi
+    @api.model
     @api.onchange('tut_mark','subj_mark','obj_mark','prac_mark')
     def calculate_marks(self):
         for rec in self:
